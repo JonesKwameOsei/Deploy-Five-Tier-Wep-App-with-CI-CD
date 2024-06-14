@@ -67,7 +67,7 @@ spec:
               - name: X-Forwarded-Proto
                 value: https
         livenessProbe:
-          initialDelaySeconds: 120
+          initialDelaySeconds: 60
           httpGet:
             path: /ghost/api/admin/site/
             port: http
