@@ -28,7 +28,7 @@ jobs:
       run: aws eks update-kubeconfig --name k8s-web-cluster  --region eu-west-1 
 
     - name: Deploy to EKS
-      run: kubectl apply -f blog/deployment.yml -n blog --validate=false
+      run: kubectl apply -f blog/deployment.yml -n blog --validate=false   #added blog ns
 
     - name: Verify deployment
       run: kubectl rollout status deployment/blog-deployment -n blog
