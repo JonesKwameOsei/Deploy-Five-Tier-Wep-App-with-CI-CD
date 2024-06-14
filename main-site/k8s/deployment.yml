@@ -71,7 +71,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: "jonestecsolutions.com"
+  - host: "success.jonestecsolutions.com"
     http:
       paths:
       - pathType: Prefix
@@ -83,5 +83,5 @@ spec:
               number: 80
   tls:
   - hosts: 
-    - jonestecsolutions.com
+    - success.jonestecsolutions.com
     secretName: main-site-tls
