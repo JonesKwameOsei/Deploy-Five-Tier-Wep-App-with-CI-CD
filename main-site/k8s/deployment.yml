@@ -67,15 +67,16 @@ kind: Ingress
 metadata:
   name: main-site-ingress
   annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: nginx
   rules:
-  - host: "success.jonestecsolutions.com"
+  - host: success.jonestecsolutions.com
     http:
       paths:
       - pathType: Prefix
-        path: "/"
+        path: /
         backend:
           service:
             name: main-site-service
