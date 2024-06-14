@@ -98,7 +98,7 @@ spec:
                 key: database_port
           - name: ssl
             value: "require"
-          - name: database__connection__user   # updated
+          - name: database__connection__user   # updated now
             valueFrom:
               secretKeyRef:
                 name: ghost-pass
