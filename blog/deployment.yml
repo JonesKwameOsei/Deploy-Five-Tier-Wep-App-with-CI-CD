@@ -90,7 +90,7 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: ghost-pass
-                key: database_host
+                key: database_host      #this is the right db host
           - name: database__connection__port
             valueFrom:
               secretKeyRef:
