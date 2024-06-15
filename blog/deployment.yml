@@ -85,10 +85,7 @@ spec:
           - name: database__client
             value: mysql
           - name: database__connection__host
-            valueFrom:
-              secretKeyRef:
-                name: ghost-pass
-                key: database_host
+            value: "jones.ct6cgg6m055y.eu-west-1.amazonaws.com"
           - name: database__connection__port
             valueFrom:
               secretKeyRef:
