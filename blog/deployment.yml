@@ -57,15 +57,23 @@ spec:
           - name: http
             containerPort: 2368
             protocol: TCP
-        # readinessProbe:
-        #   httpGet:
-        #     path: /ghost/api/admin/site/
-        #     port: http
-        #     httpHeaders:
-        #       - name: X-Forwarded-Proto
-        #         value: https
+        readinessProbe:
+          initialDelaySeconds: 120  # Increased delay to give Ghost time to start
+          timeoutSeconds: 5
+          periodSeconds: 10
+          failureThreshold: 3
+          successThreshold: 1
+          httpGet:
+            path: /ghost/api/admin/site/
+            port: http
+            httpHeaders:
+              - name: X-Forwarded-Proto
+                value: https
         livenessProbe:
-          initialDelaySeconds: 60
+          initialDelaySeconds: 180  # Increased delay to give Ghost time to stabilize
+          timeoutSeconds: 5
+          periodSeconds: 10
+          failureThreshold: 3
           httpGet:
             path: /ghost/api/admin/site/
             port: http
@@ -85,12 +93,17 @@ spec:
           - name: database__client
             value: mysql
           - name: database__connection__host
-            value: "jones.ct6cgg6m055y.eu-west-1.amazonaws.com"
+            valueFrom:
+              secretKeyRef:
+                name: ghost-pass
+                key: database_host
           - name: database__connection__port
             valueFrom:
               secretKeyRef:
                 name: ghost-pass
                 key: database_port
+          - name: ssl
+            value: "require"
           - name: database__connection__user
             valueFrom:
               secretKeyRef:
