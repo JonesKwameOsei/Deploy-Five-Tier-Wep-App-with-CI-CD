@@ -67,7 +67,7 @@ spec:
               - name: X-Forwarded-Proto
                 value: https
         livenessProbe:
-          initialDelaySeconds: 60
+          initialDelaySeconds: 300
           httpGet:
             path: /ghost/api/admin/site/
             port: http
@@ -110,37 +110,37 @@ spec:
                 key: userpassword
           - name: database__connection__database
             value: ghost_db
-          # - name: logging__transports
-          #   value: '["stdout"]'
+          - name: logging__transports
+            value: '["stdout"]'
           - name: logging__level
             value: info
           - name: url
             value: https://awsblog.jonestecsolutions.com
-          # - name: mail__transport
-          #   value: SMTP
-          # - name: mail__from
-          #   valueFrom:
-          #     secretKeyRef:
-          #       name: ghost-pass
-          #       key: mail_from
-          # - name: mail__options__service
-          #   value: Mailgun
-          # - name: mail__options__host
-          #   value: smtp.eu.mailgun.org
-          # - name: mail__options__port
-          #   value: "587"
-          # - name: mail__options__secure
-          #   value: "false"
-          # - name: mail__options__auth__user
-          #   valueFrom:
-          #     secretKeyRef:
-          #       name: ghost-pass
-          #       key: smtp_username
-          # - name: mail__options__auth__pass
-          #   valueFrom:
-          #     secretKeyRef:
-          #       name: ghost-pass
-          #       key: smtp_password
+          - name: mail__transport
+            value: SMTP
+          - name: mail__from
+            valueFrom:
+              secretKeyRef:
+                name: ghost-pass
+                key: mail_from
+          - name: mail__options__service
+            value: Mailgun
+          - name: mail__options__host
+            value: smtp.eu.mailgun.org
+          - name: mail__options__port
+            value: "587"
+          - name: mail__options__secure
+            value: "false"
+          - name: mail__options__auth__user
+            valueFrom:
+              secretKeyRef:
+                name: ghost-pass
+                key: smtp_username
+          - name: mail__options__auth__pass
+            valueFrom:
+              secretKeyRef:
+                name: ghost-pass
+                key: smtp_password
         volumeMounts:
           - name: ghost-persistent-storage
             mountPath: /var/www/html
