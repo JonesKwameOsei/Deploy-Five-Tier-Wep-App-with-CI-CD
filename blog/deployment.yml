@@ -44,7 +44,7 @@ spec:
     spec:
       containers:
         - name: website
-          image: ghost:4-alpine
+          image: ghost:latest
           env:
         - name: url
           value: https://awsblog.jonestecsolutions.com
