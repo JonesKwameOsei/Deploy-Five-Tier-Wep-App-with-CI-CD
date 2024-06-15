@@ -52,7 +52,7 @@ spec:
             value: mysql
           - name: database__connection__host
               valueFrom:
-              secretKeyRef:
+              secretKeyRef:  # changed
               name: ghost-app-secret
               key: db_host
         - name: database__connection__port
