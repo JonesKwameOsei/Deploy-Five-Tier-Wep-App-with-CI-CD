@@ -212,7 +212,7 @@ spec:
               number: 80
   tls:
   - hosts: 
-    - awsblog.jonestecsolutions.com
+    - awsblog.jonestecsolutions.com         #host
     secretName: blog-tls
 
 
