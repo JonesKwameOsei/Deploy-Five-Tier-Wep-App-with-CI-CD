@@ -50,7 +50,7 @@ spec:
         tier: frontend
     spec:
       containers:
-      - image: ghost:5-alpine
+      - image: ghost:latest
         name: website
         imagePullPolicy: Always
         ports:
@@ -214,3 +214,5 @@ spec:
   - hosts: 
     - awsblog.jonestecsolutions.com
     secretName: blog-tls
+
+
