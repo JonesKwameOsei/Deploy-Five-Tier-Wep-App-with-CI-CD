@@ -43,28 +43,37 @@ spec:
         app: blog
     spec:
       containers:
-      - name: website
-        image: kwameds/ghost:latest
-        env:
+        - name: website
+          image: ghost:4-alpine
+          env:
         - name: url
           value: https://awsblog.jonestecsolutions.com
         - name: database__client
           value: mysql
         - name: database__connection__host
-          value: jones.ct6cgg6m055y.eu-west-1.rds.amazonaws.com
-        - name: database__connection__port
-          value: "3306"
-        - name: database__connection__user
-          value: ghost_user
-        - name: database__connection__password
           valueFrom:
             secretKeyRef:
               name: ghost-pass
-              key: userpassword
+              key: database_host
+        - name: database__connection__port
+          valueFrom:
+            secretKeyRef:
+              name: ghost-pass
+              key: database_port
+        - name: database__connection__user
+          valueFrom:
+            secretKeyRef:
+              name: ghost-pass
+              key: database_user
+        - name: database__connection__password
+          valueFrom:
+            secretKeyRef:
+              name: ghost-secret
+              key: database_password
         - name: database__connection__database
           value: ghost_db
-        ports:
-        - containerPort: 2368
+          ports:
+            - containerPort: 2368
 ---
 apiVersion: v1
 kind: Service
