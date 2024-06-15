@@ -50,10 +50,9 @@ spec:
         tier: frontend
     spec:
       containers:
-      - image: ghost:latest
+      - image: ghost:5-alpine
         name: website
         imagePullPolicy: Always
-        restartPolicy: OnFailure
         ports:
           - name: http
             containerPort: 2368
