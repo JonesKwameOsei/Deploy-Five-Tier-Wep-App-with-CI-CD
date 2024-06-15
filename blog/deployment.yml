@@ -60,7 +60,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: ghost-pass
-              key: database_password
+              key: userpassword
         - name: database__connection__database
           value: ghost_db
         ports:
