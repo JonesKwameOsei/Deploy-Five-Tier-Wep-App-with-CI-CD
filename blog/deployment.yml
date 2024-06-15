@@ -50,7 +50,7 @@ spec:
         tier: frontend
     spec:
       containers:
-      - image: ghost:latest
+      - image: kwameds/ghost:latest
         name: website
         imagePullPolicy: Always
         ports:
