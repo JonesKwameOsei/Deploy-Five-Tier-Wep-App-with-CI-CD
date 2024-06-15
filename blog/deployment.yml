@@ -53,6 +53,7 @@ spec:
       - image: ghost:latest
         name: website
         imagePullPolicy: Always
+        restartPolicy: OnFailure
         ports:
           - name: http
             containerPort: 2368
