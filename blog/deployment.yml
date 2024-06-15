@@ -57,29 +57,29 @@ spec:
           - name: http
             containerPort: 2368
             protocol: TCP
-        readinessProbe:
-          initialDelaySeconds: 300  # Increased delay to give Ghost time to start
-          timeoutSeconds: 5
-          periodSeconds: 10
-          failureThreshold: 3
-          successThreshold: 1
-          httpGet:
-            path: /ghost/api/admin/site/
-            port: http
-            httpHeaders:
-              - name: X-Forwarded-Proto
-                value: https
-        livenessProbe:
-          initialDelaySeconds: 200  # Increased delay to give Ghost time to stabilize
-          timeoutSeconds: 5
-          periodSeconds: 10
-          failureThreshold: 3
-          httpGet:
-            path: /ghost/api/admin/site/
-            port: http
-            httpHeaders:
-              - name: X-Forwarded-Proto
-                value: https
+        # readinessProbe:
+        #   initialDelaySeconds: 300  # Increased delay to give Ghost time to start
+        #   timeoutSeconds: 5
+        #   periodSeconds: 10
+        #   failureThreshold: 3
+        #   successThreshold: 1
+        #   httpGet:
+        #     path: /ghost/api/admin/site/
+        #     port: http
+        #     httpHeaders:
+        #       - name: X-Forwarded-Proto
+        #         value: https
+        # livenessProbe:
+        #   initialDelaySeconds: 200  # Increased delay to give Ghost time to stabilize
+        #   timeoutSeconds: 5
+        #   periodSeconds: 10
+        #   failureThreshold: 3
+        #   httpGet:
+        #     path: /ghost/api/admin/site/
+        #     port: http
+        #     httpHeaders:
+        #       - name: X-Forwarded-Proto
+        #         value: https
         resources:
           requests:
             memory: '128Mi'
