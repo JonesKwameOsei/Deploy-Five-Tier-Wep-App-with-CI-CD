@@ -30,130 +30,39 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: blog-deployment
-  labels:
-    app: ghost
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: ghost
-      tier: frontend
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 2
+      app: blog
   template:
     metadata:
       labels:
-        app: ghost
-        tier: frontend
+        app: blog
     spec:
       containers:
-      - image: kwameds/ghost:latest
-        name: website
-        imagePullPolicy: Always
-        ports:
-          - name: http
-            containerPort: 2368
-            protocol: TCP
-        # readinessProbe:
-        #   initialDelaySeconds: 300  # Increased delay to give Ghost time to start
-        #   timeoutSeconds: 5
-        #   periodSeconds: 10
-        #   failureThreshold: 3
-        #   successThreshold: 1
-        #   httpGet:
-        #     path: /ghost/api/admin/site/
-        #     port: http
-        #     httpHeaders:
-        #       - name: X-Forwarded-Proto
-        #         value: https
-        # livenessProbe:
-        #   initialDelaySeconds: 200  # Increased delay to give Ghost time to stabilize
-        #   timeoutSeconds: 5
-        #   periodSeconds: 10
-        #   failureThreshold: 3
-        #   httpGet:
-        #     path: /ghost/api/admin/site/
-        #     port: http
-        #     httpHeaders:
-        #       - name: X-Forwarded-Proto
-        #         value: https
-        resources:
-          requests:
-            memory: '128Mi'
-            cpu: '100m'
-          limits:
-            memory: '256Mi'
-            cpu: '150m'
+        - name: website
+          image: ghost:latest
         env:
-          - name: NODE_ENV
-            value: production
-          - name: database__client
-            value: mysql
-          - name: database__connection__host
-            valueFrom:
-              secretKeyRef:
-                name: ghost-pass
-                key: database_host
-          - name: database__connection__port
-            valueFrom:
-              secretKeyRef:
-                name: ghost-pass
-                key: database_port
-          - name: ssl
-            value: "require"
-          - name: database__connection__user
-            valueFrom:
-              secretKeyRef:
-                name: ghost-pass
-                key: database_user
-          - name: database__connection__password
-            valueFrom:
-              secretKeyRef:
-                name: ghost-pass
-                key: userpassword
-          - name: database__connection__database
-            value: ghost_db
-          - name: logging__transports
-            value: '["stdout"]'
-          - name: logging__level
-            value: info
-          - name: url
-            value: https://awsblog.jonestecsolutions.com
-          - name: mail__transport
-            value: SMTP
-          - name: mail__from
-            valueFrom:
-              secretKeyRef:
-                name: ghost-pass
-                key: mail_from
-          - name: mail__options__service
-            value: Mailgun
-          - name: mail__options__host
-            value: smtp.eu.mailgun.org
-          - name: mail__options__port
-            value: "587"
-          - name: mail__options__secure
-            value: "false"
-          - name: mail__options__auth__user
-            valueFrom:
-              secretKeyRef:
-                name: ghost-pass
-                key: smtp_username
-          - name: mail__options__auth__pass
-            valueFrom:
-              secretKeyRef:
-                name: ghost-pass
-                key: smtp_password
-        volumeMounts:
-          - name: ghost-persistent-storage
-            mountPath: /var/www/html
-      volumes:
-        - name: ghost-persistent-storage
-          persistentVolumeClaim:
-            claimName: ghost-pv-claim
+        - name: url
+          value: https://awsblog.jonestecsolutions.com
+        - name: database__client
+          value: mysql
+        - name: database__connection__host
+          value: jones.ct6cgg6m055y.eu-west-1.rds.amazonaws.com
+        - name: database__connection__port
+          value: "3306"
+        - name: database__connection__user
+          value: ghost_user
+        - name: database__connection__password
+          valueFrom:
+            secretKeyRef:
+              name: ghost-secret
+              key: db_password
+        - name: database__connection__database
+          value: ghost_db
+          ports:
+            - containerPort: 2368
 ---
 apiVersion: v1
 kind: Service
