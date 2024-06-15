@@ -49,7 +49,7 @@ spec:
         - name: database__client
           value: mysql
         - name: database__connection__host
-          value: jones.ct6cgg6m055y.eu-west-1.rds.amazonaws.com
+          value: jones.ct6cgg6m055y.eu-west-1.rds.amazonaws.com  # host
         - name: database__connection__port
           value: "3306"
         - name: database__connection__user
