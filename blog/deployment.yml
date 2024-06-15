@@ -59,7 +59,7 @@ spec:
         - name: database__connection__password
           valueFrom:
             secretKeyRef:
-              name: ghost-secret
+              name: ghost-pass
               key: db_password
         - name: database__connection__database
           value: ghost_db
