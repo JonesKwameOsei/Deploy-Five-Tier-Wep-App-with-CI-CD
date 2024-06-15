@@ -44,7 +44,7 @@ spec:
     spec:
       containers:
       - name: website
-        image: https://hub.docker.com/layers/kwameds/ghost/latest/images/sha256-3ce1ffd33d19768ae4bca0d4c435cc616c0e85996964378d6966139f2e92db8a?context=repo
+        image: kwameds/ghost:latest
         env:
         - name: url
           value: https://awsblog.jonestecsolutions.com
