@@ -94,8 +94,6 @@ spec:
               secretKeyRef:
                 name: ghost-pass
                 key: database_port
-          - name: ssl
-            value: "require"
           - name: database__connection__user
             valueFrom:
               secretKeyRef:
@@ -113,7 +111,7 @@ spec:
           - name: logging__level
             value: info
           - name: url
-            value: https://awsblog.jonestecsolutions.com.com
+            value: https://awsblog.jonestecsolutions.com
           - name: mail__transport
             value: SMTP
           - name: mail__from
@@ -192,7 +190,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: awsblog.jonestecsolutions.com.com
+  - host: awsblog.jonestecsolutions.com
     http:
       paths:
       - pathType: Prefix
@@ -201,8 +199,8 @@ spec:
           service:
             name: ghost-service
             port:
-              number: 2368
+              number: 80
   tls:
   - hosts: 
-    - awsblog.jonestecsolutions.com.com
+    - awsblog.jonestecsolutions.com
     secretName: blog-tls
