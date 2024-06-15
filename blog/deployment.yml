@@ -57,13 +57,13 @@ spec:
           - name: http
             containerPort: 2368
             protocol: TCP
-        readinessProbe:
-          httpGet:
-            path: /ghost/api/admin/site/
-            port: http
-            httpHeaders:
-              - name: X-Forwarded-Proto
-                value: https
+        # readinessProbe:
+        #   httpGet:
+        #     path: /ghost/api/admin/site/
+        #     port: http
+        #     httpHeaders:
+        #       - name: X-Forwarded-Proto
+        #         value: https
         livenessProbe:
           initialDelaySeconds: 60
           httpGet:
