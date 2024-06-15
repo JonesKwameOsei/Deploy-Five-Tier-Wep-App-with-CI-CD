@@ -58,7 +58,7 @@ spec:
             containerPort: 2368
             protocol: TCP
         readinessProbe:
-          initialDelaySeconds: 120  # Increased delay to give Ghost time to start
+          initialDelaySeconds: 200  # Increased delay to give Ghost time to start
           timeoutSeconds: 5
           periodSeconds: 10
           failureThreshold: 3
