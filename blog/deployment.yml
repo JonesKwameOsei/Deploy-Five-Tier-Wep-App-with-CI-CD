@@ -29,68 +29,123 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ghost
+  name: blog-deployment
   labels:
     app: ghost
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: ghost
+      tier: frontend
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 2
   template:
     metadata:
       labels:
         app: ghost
+        tier: frontend
     spec:
       containers:
-        - name: ghost
-          image: ghost:latest
-          ports:
-            - containerPort: 2368
+      - image: ghost:latest
+        name: website
+        imagePullPolicy: Always
+        ports:
+          - name: http
+            containerPort: 2368
+            protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /ghost/api/admin/site/
+            port: http
+            httpHeaders:
+              - name: X-Forwarded-Proto
+                value: https
+        livenessProbe:
+          initialDelaySeconds: 60
+          httpGet:
+            path: /ghost/api/admin/site/
+            port: http
+            httpHeaders:
+              - name: X-Forwarded-Proto
+                value: https
+        resources:
+          requests:
+            memory: '128Mi'
+            cpu: '100m'
+          limits:
+            memory: '256Mi'
+            cpu: '150m'
         env:
+          - name: NODE_ENV
+            value: production
           - name: database__client
             value: mysql
           - name: database__connection__host
-              valueFrom:
-              secretKeyRef:  # changed
-              name: ghost-app-secret
-              key: db_host
-        - name: database__connection__port
-          valueFrom:
-            secretKeyRef:
-              name: ghost-app-secret
-              key: db_port
-        - name: database__connection__user
-          valueFrom:
-            secretKeyRef:
-              name: ghost-app-secret
-              key: db_user
-        - name: database__connection__password
-          valueFrom:
-            secretKeyRef:
-              name: ghost-app-secret
-              key: user_password
-        - name: database__connection__database
-          value: ghost_db  # your database name
-        - name: mail__transport
-          value: SMTP
-        - name: mail__options__service
-          value: Gmail  # your SMTP service
-        - name: mail__options__auth__user
-          valueFrom:
-            secretKeyRef:
-              name: ghost-app-secret
-              key: smtp_username
-        - name: mail__options__auth__pass
-          valueFrom:
-            secretKeyRef:
-              name: ghost-app-secret
-              key: smtp_password
-        - name: mail__from
-          valueFrom:
-            secretKeyRef:
-              name: ghost-app-secret
-              key: mail_from
+            valueFrom:
+              secretKeyRef:
+                name: ghost-pass
+                key: database_host
+          - name: database__connection__port
+            valueFrom:
+              secretKeyRef:
+                name: ghost-pass
+                key: database_port
+          - name: ssl
+            value: "require"
+          - name: database__connection__user
+            valueFrom:
+              secretKeyRef:
+                name: ghost-pass
+                key: database_user
+          - name: database__connection__password
+            valueFrom:
+              secretKeyRef:
+                name: ghost-pass
+                key: userpassword
+          - name: database__connection__database
+            value: ghost_db
+          - name: logging__transports
+            value: '["stdout"]'
+          - name: logging__level
+            value: info
+          - name: url
+            value: https://awsblog.parbtechsolutions.com
+          - name: mail__transport
+            value: SMTP
+          - name: mail__from
+            valueFrom:
+              secretKeyRef:
+                name: ghost-pass
+                key: mail_from
+          - name: mail__options__service
+            value: Mailgun
+          - name: mail__options__host
+            value: smtp.eu.mailgun.org
+          - name: mail__options__port
+            value: "587"
+          - name: mail__options__secure
+            value: "false"
+          - name: mail__options__auth__user
+            valueFrom:
+              secretKeyRef:
+                name: ghost-pass
+                key: smtp_username
+          - name: mail__options__auth__pass
+            valueFrom:
+              secretKeyRef:
+                name: ghost-pass
+                key: smtp_password
+        volumeMounts:
+          - name: ghost-persistent-storage
+            mountPath: /var/www/html
+      volumes:
+        - name: ghost-persistent-storage
+          persistentVolumeClaim:
+            claimName: ghost-pv-claim
 ---
 apiVersion: v1
 kind: Service
