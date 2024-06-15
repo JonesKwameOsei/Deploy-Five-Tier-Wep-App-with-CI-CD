@@ -34,11 +34,11 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      app: blog
+      app: ghost
   template:
     metadata:
       labels:
-        app: blog
+        app: ghost
     spec:
       containers:
         - name: website
