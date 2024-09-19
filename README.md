@@ -1321,53 +1321,6 @@ https://success.jonestecsolutions.com
 
 
 
-# Create Database and User for Ghos
-Having connected the database instance to the EC2 instnace, we will now create a database named `ghost` and it user or login details. 
-
-**create database for ghost**
-
-```
-SHOW DATABASES; 
-CREATE DATABASE ghost_db;
-```
-![alt text](FiveTierProjectImages/show-db.png)
-
-```
-# Create a user named ghost_user with the password ghost_password, allowing connections from any host
-CREATE USER 'ghost_user'@'%' IDENTIFIED BY 'ghost_password';
-
-# Grant all privileges on the database ghost_db to the user ghost_user, from any host
-GRANT ALL PRIVILEGES ON ghost_db.* TO 'ghost_user'@'%';
-
-# Apply the changes immediately by reloading the privilege tables.
-FLUSH PRIVILEGES;
-```
-![alt text](FiveTierProjectImages/create-db.png)
-
-**Verify the database and user creation**:
-We will sign into the db with the new user to verify if it has been created.
-
-```
-mysql -u ghost_user -p -h $ghost_endpoint
-```
-![alt text](FiveTierProjectImages/new-db-user.png)
-
-### Deploy Blog App
-We will now deploy, `Ghost`, for the blogging platform. In a Kuberneres cluster, the following are needed. 
-- 
-- **Deployment**: defines a set of replica pods
-- **Service**: defines a network interface and a set of endpoint policies
-- **Persistent Volume Claim**: defines a request for storage resources
-- **Persistent Volume**: defines a piece of networked storage
-- **Storage Class**: defines a class of storage
-- **ConfigMap**: defines a set of configuration data
-- **Secret**: defines a set of sensitive data for the DB
-- **Ingress**: defines a set of rules for incoming traffic
-- **Cert Issuer**: Secure web addresses. 
-
-First, we will need to create secrets for the db to connect to the blog platform. 
-Secrets created:<p>
-![secrets](image.png)
 
 
 
