@@ -799,8 +799,6 @@ To connect to the instance, we will need the `DB secrets` from the parameter sto
 ***Accessing Parameters:***
 To retrieve the stored values, we will use the AWS CLI with appropriate permissions. 
 - CLI command to retrieve secrets:
-
-![connect](https://github.com/JonesKwameOsei/Deploy-Five-Tier-Wep-App-with-CI-CD/blob/main/FiveTierProjectImages/ssh-remote-connect.png)
 ```
 # Set region
 AWS_REGION="eu-west-1"
