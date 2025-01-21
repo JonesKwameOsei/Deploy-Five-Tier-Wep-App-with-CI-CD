@@ -793,8 +793,6 @@ On the `Connect to instance` page, copy, paste and run the example ssh script. I
 ```
 ssh -i "MyK8sKeyPair.pem" ubuntu@ec2-xxxxxxxxxxx.eu-west-1.compute.amazonaws.com
 ```
-![ssh-connect](FiveTierProjectImages/ssh-remote-connect.png)
-
 ### Connect the EC2 Instance to the DB Instance
 To connect to the instance, we will need the `DB secrets` from the parameter store. 
 
