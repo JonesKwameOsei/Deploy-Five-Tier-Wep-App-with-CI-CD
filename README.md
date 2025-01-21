@@ -799,6 +799,8 @@ To connect to the instance, we will need the `DB secrets` from the parameter sto
 ***Accessing Parameters:***
 To retrieve the stored values, we will use the AWS CLI with appropriate permissions. 
 - CLI command to retrieve secrets:
+![db-connected-edited](https://github.com/user-attachments/assets/67c46761-0dd9-479c-838b-ca8be4b3c25e)
+
 ```
 # Set region
 AWS_REGION="eu-west-1"
@@ -813,8 +815,6 @@ echo "DB Username: $DB_USERNAME"
 echo "DB Password: $DB_PASSWORD"
 echo "DB Endpoint: $DB_ENDPOINT"
 ```
-![retrieve-secrets](https://github.com/JonesKwameOsei/Deploy-Five-Tier-Wep-App-with-CI-CD/blob/main/FiveTierProjectImages/retrieve-stored-secrets.png)
-
 
 In the point, the script retrieved a colon and the db port number which might throw an error when we try to connect the db, it returned:
 ```
