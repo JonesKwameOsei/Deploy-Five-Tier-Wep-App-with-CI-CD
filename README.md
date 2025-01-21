@@ -815,7 +815,7 @@ echo "DB Username: $DB_USERNAME"
 echo "DB Password: $DB_PASSWORD"
 echo "DB Endpoint: $DB_ENDPOINT"
 ```
-![retrieve-secrets](FiveTierProjectImages/retrieve-stored-secrets.png)
+![retrieve-secrets](https://github.com/JonesKwameOsei/Deploy-Five-Tier-Wep-App-with-CI-CD/blob/main/FiveTierProjectImages/retrieve-stored-secrets.png)
 
 
 In the point, the script retrieved a colon and the db port number which might throw an error when we try to connect the db, it returned:
